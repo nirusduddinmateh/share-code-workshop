@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-use App\Http\Controllers\AuthController;
 
 Route::resource('users', 'User\UserController', ['except' => ['create', 'edit']]);
-Route::resource('users.posts', 'User\UserPostController', ['except' => ['create', 'edit']]);
+Route::resource('users.following', 'User\UserFollowingController', ['only' => ['index', 'update', 'destroy']]);
+Route::resource('users.followers', 'User\UserFollowerController', ['only' => ['index']]);
+Route::resource('users.posts', 'User\UserPostController', ['only' => ['index']]);
+
 Route::resource('posts', 'Post\PostController', ['except' => ['create', 'edit']]);
 Route::resource('posts.comments', 'Post\PostCommentController', ['except' => ['create', 'edit']]);
+
+
+
