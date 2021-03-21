@@ -18,8 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $users = fractal($users, new UserTransformer())->toArray();
-        return response()->json($users);
+        return response()->json(['data' => $users]);
     }
 
     /**
