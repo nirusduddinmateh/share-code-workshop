@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ModelNotFoundException) {
             $modelName = strtolower(class_basename($exception->getModel()));
 
-            return $this->errorResponse("No data found (Table: {$modelName})", 404);
+            return $this->errorResponse("ไม่พบข้อมูล! (ตาราง: {$modelName})", 404);
         }
 
         if ($exception instanceof AuthenticationException) {
@@ -83,11 +83,11 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return $this->errorResponse('The specified method for the request is invalid.', 405);
+            return $this->errorResponse('วิธีการที่ระบุสำหรับคำขอไม่ถูกต้อง', 405);
         }
 
         if ($exception instanceof NotFoundHttpException) {
-            return $this->errorResponse('The specified URL cannot be found.', 404);
+            return $this->errorResponse('ไม่พบ URL ที่ระบุ', 404);
         }
 
         if ($exception instanceof HttpException) {
@@ -98,7 +98,7 @@ class Handler extends ExceptionHandler
             $errorCode = $exception->errorInfo[1];
 
             if ($errorCode == 1451) {
-                return $this->errorResponse('Cannot remove this resource permanently. It is related with any other resource', 409);
+                return $this->errorResponse('ไม่สามารถลบข้อมูลนี้ได้ เนื่องจากข้อมูลมีความสัมพันธ์เกี่ยวข้องกับข้อมูลอื่น ๆ', 409);
             }
         }
 
@@ -110,7 +110,7 @@ class Handler extends ExceptionHandler
             return parent::render($request, $exception);
         }
 
-        return $this->errorResponse('Unexpected Exception. Try later.', 500);
+        return $this->errorResponse('เกิดข้อผิดพลาดที่ไม่คาดคิด โปรดลองในภายหลัง', 500);
     }
 
     /**
@@ -122,7 +122,7 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        return $this->errorResponse('Unauthenticated.', 401);
+        return $this->errorResponse('กรุณา Login เพื่อเข้าใช้งาน', 401);
     }
 
     /**
