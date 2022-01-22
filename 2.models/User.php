@@ -20,6 +20,7 @@ class User extends Authenticatable
         'email',
         'email_verified_at',
         'password',
+        'role'
     ];
 
     /**
@@ -29,9 +30,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-
-        'pivot'
+        'remember_token'
     ];
 
     /**
@@ -46,21 +45,5 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class, 'author_id', 'id');
-    }
-
-    /**
-     * Get all of the following.
-     */
-    public function following()
-    {
-        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id');
-    }
-
-    /**
-     * Get all of the followers.
-     */
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'user_follow');
     }
 }
